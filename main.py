@@ -23,8 +23,8 @@ systems = systems.drop("Year", axis="columns")
 iscompulsory = iscompulsory.drop("Year", axis="columns")
 
 # Create the master data set
-master_df = pd.merge(systems, iscompulsory, on=["ISO2", "ISO3", "Country"], how= "left")
-# print(master_df.head(1))
+count_comp_df = pd.merge(systems, iscompulsory, on=["ISO2", "ISO3", "Country"], how= "left")
+# print(count_comp_df.head(1))
 
 # Handle the turnout dataframes
 parl_turnout_df = pd.read_excel("VotTurnoutParlDb.xlsx")
@@ -74,24 +74,48 @@ pres_turnout_grouped["Presidential Avg Turnout %"] = pres_turnout_grouped["PresV
 
 # Create the master turnout dataframe
 turnout_df = pd.merge(pres_turnout_grouped, parl_turnout_grouped, on=["Country"], how= "right")
-print(turnout_df.info())
+# print(turnout_df.info())
 
+# Create the master dataframe
+master_df = pd.merge(turnout_df, count_comp_df, on=["Country"], how="right")
+
+# Rename the columns in the master dataframe
+master_df.rename(columns={
+    "Country": "Country",
+    "PresVotTurn": "PresTurnout",
+    "Presidential Avg Turnout %": "%PresTurnout",
+    "ParlVotTurn": "ParlTurnout",
+    "Parliamentary Avg Turnout %": "%ParlTurnout",
+    "ISO2": "ISO2",
+    "ISO3": "ISO3",
+    "PresSystem": "PresVotingSystem",
+    "ParlSystem": "ParlVotingSystem",
+    "PresComp": "PresCompulsory",
+    "ParlComp": "ParlCompulsory"
+})
+# print(master_df.info())
 
 ##########################################
 ############  DATA ANALYSIS  #############
 ##########################################
 
 # Count of voting systems in parliamentary and presidential elections
-parl_system_count = master_df["ParlSystem"].value_counts()
-pres_system_count = master_df["PresSystem"].value_counts()
+parl_system_count = count_comp_df["ParlSystem"].value_counts()
+pres_system_count = count_comp_df["PresSystem"].value_counts()
 # print(parl_system_count)
 # print(pres_system_count)
 
 # Count of countries where elections are compulsory
-parl_comp = master_df["ParlComp"].value_counts()
-pres_comp = master_df["PresComp"].value_counts()
+parl_comp = count_comp_df["ParlComp"].value_counts()
+pres_comp = count_comp_df["PresComp"].value_counts()
 # print(parl_comp)
 # print(pres_comp)
+
+# Get information about turnout statistics
+# print(turnout_df.describe())
+print(turnout_df.loc[turnout_df['Parliamentary Avg Turnout %'].idxmax()])
+
+# print(master_df.describe())
 
 ##########################################
 ##########  INFERENTIAL STATS  ###########
