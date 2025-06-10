@@ -8,11 +8,11 @@ import pandas as pd
 ##########################################
 
 # Load the data frames
-pres_system_df = pd.read_excel("PresDb.xlsx")
-parl_system_df = pd.read_excel("NatLegDb.xlsx")
+pres_system_df = pd.read_excel("raw_data/PresDb.xlsx")
+parl_system_df = pd.read_excel("raw_data/NatLegDb.xlsx")
 
-pres_iscompulsory_df = pd.read_excel("CompulsoryVotPresDB.xlsx")
-parl_iscompulsory_df = pd.read_excel("CompulsoryVotParlDB.xlsx")
+pres_iscompulsory_df = pd.read_excel("raw_data/CompulsoryVotPresDB.xlsx")
+parl_iscompulsory_df = pd.read_excel("raw_data/CompulsoryVotParlDB.xlsx")
 
 # Join all except voter turnout dataframes together
 systems = pd.merge(pres_system_df, parl_system_df, on=["ISO2", "ISO3", "Country", "Year"], how="left")
@@ -27,14 +27,10 @@ count_comp_df = pd.merge(systems, iscompulsory, on=["ISO2", "ISO3", "Country"], 
 # print(count_comp_df.head(1))
 
 # Handle the turnout dataframes
-parl_turnout_df = pd.read_excel("VotTurnoutParlDb.xlsx")
-pres_turnout_df = pd.read_excel("VotTurnoutPresDb.xlsx")
+parl_turnout_df = pd.read_excel("raw_data/VotTurnoutParlDb.xlsx")
+pres_turnout_df = pd.read_excel("raw_data/VotTurnoutPresDb.xlsx")
 # print(parl_turnout_df.head(5))
 # print(pres_turnout_df.head(5))
-
-# Drop the "year" column
-parl_turnout_df.drop(columns=["year"])
-pres_turnout_df.drop(columns=["Year"])
 
 # Group the data by country with the average turnout
 # Parliamentary turnout
@@ -66,18 +62,19 @@ pres_turnout_grouped = (
 )
 
 pres_turnout_grouped["Presidential Avg Turnout %"] = pres_turnout_grouped["PresVotTurn"] / 100
-
 # print(parl_turnout_grouped.head(5))
 # print(pres_turnout_grouped.head(5))
 # print(parl_turnout_grouped.info())
 # print(pres_turnout_grouped.info())
 
-# Create the master turnout dataframe
-turnout_df = pd.merge(pres_turnout_grouped, parl_turnout_grouped, on=["Country"], how= "right")
-# print(turnout_df.info())
+# Create the master dataframes
+turnout_df = pd.merge(pres_turnout_df, parl_turnout_df, on=["Country", "ISO2", "ISO3", "Year"], how= "right")
+avg_turnout_df = pd.merge(pres_turnout_grouped, parl_turnout_grouped, on=["Country"], how= "right")
+print(avg_turnout_df.head(5))
 
 # Create the master dataframe
-master_df = pd.merge(turnout_df, count_comp_df, on=["Country"], how="right")
+master_df = pd.merge(avg_turnout_df, count_comp_df, on=["Country"], how="right")
+master_df.drop(columns=["PresVotTurn", "ParlVotTurn"])
 
 # Rename the columns in the master dataframe
 master_df.rename(columns={
@@ -112,10 +109,9 @@ pres_comp = count_comp_df["PresComp"].value_counts()
 # print(pres_comp)
 
 # Get information about turnout statistics
+# print(avg_turnout_df.describe())
 # print(turnout_df.describe())
-print(turnout_df.loc[turnout_df['Parliamentary Avg Turnout %'].idxmax()])
-
-# print(master_df.describe())
+print(master_df[master_df["ParlComp"].notnull()].describe())
 
 ##########################################
 ##########  INFERENTIAL STATS  ###########

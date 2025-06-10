@@ -55,6 +55,17 @@ Yes     4
 ------------------------------------------------------------
 ### Turnout data
 Overall description of turnout data:
+       PresVotTurn  ParlVotTurn
+count  1260.000000  2384.000000
+mean     65.353643    71.169417
+std      15.225068    16.256280
+min      18.110000     2.730000
+25%      55.020000    60.345000
+50%      65.260000    73.120000
+75%      76.680000    83.722500
+max      98.410000   102.620000
+
+Overall description of average turnout data:
        PresVotTurn  Presidential Avg Turnout %  ParlVotTurn  Parliamentary Avg Turnout %
 count   113.000000                  113.000000   199.000000                   199.000000
 mean     64.742301                    0.647423    69.148936                     0.691489
@@ -65,30 +76,75 @@ min      18.110000                    0.181100    29.156667                     
 75%      77.490000                    0.774900    77.220833                     0.772208
 max      98.410000                    0.984100    99.860000                     0.998600
 
-Lowest presidential turnout: Haiti (18.11%)
+Lowest average presidential turnout: Haiti (18.11%)
 Country                            Haiti
 PresVotTurn                        18.11
 Presidential Avg Turnout %        0.1811
 ParlVotTurn                    35.023333
 Parliamentary Avg Turnout %     0.350233
 
-Lowest parliamentary turnout: Mali (29.16%)
+Lowest average parliamentary turnout: Mali (29.16%)
 Country                             Mali
 PresVotTurn                        34.42
 Presidential Avg Turnout %        0.3442
 ParlVotTurn                    29.156667
 Parliamentary Avg Turnout %     0.291567
 
-Highest presidential turnout: Equatorial Guinea (91.8%)
+Highest average presidential turnout: Equatorial Guinea (91.8%)
 Country                        Equatorial Guinea
 PresVotTurn                                98.41
 Presidential Avg Turnout %                0.9841
 ParlVotTurn                                 91.8
 Parliamentary Avg Turnout %                0.918
 
-Highest parliamentary turnout: Somalia (99.86%)
+Highest average parliamentary turnout: Somalia (99.86%)
 Country                        Somalia
 PresVotTurn                        NaN
 Presidential Avg Turnout %         NaN
 ParlVotTurn                      99.86
 Parliamentary Avg Turnout %     0.9986
+
+Minimal recorded presidential turnout: Haiti 2015 (17.82%):
+Country             Haiti
+ISO2_x                 HT
+ISO3_x                HTI
+Year           2016-11-20
+PresVotTurn         18.11
+
+Minimal recorded parliamentary turnout: Jamaica 1983 (2.73%):
+Country           Jamaica
+ISO2_y                 JM
+ISO3_y                JAM
+year           1983-01-01
+ParlVotTurn          2.73
+
+Maximal recorded presidential turnout: Equatorial Guinea 2022 (98.41%):
+Country        Equatorial Guinea
+ISO2_x                        GQ
+ISO3_x                       GNQ
+Year                  2022-01-01
+PresVotTurn                98.41
+
+Maximal recorded parliamentary turnout: Bolivia 2020 (102.62%):*
+Country           Bolivia
+ISO2_y                 BO
+ISO3_y                BOL
+year           1978-01-01
+ParlVotTurn        102.62
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+* From [Wikipedia](https://en.wikipedia.org/wiki/1978_Bolivian_general_election):
+"The official results were inconsistent; the reported total number of votes cast was 1,971,968, around 50,000 more than the number of registered voters (1,921,556), giving a turnout of 102.6%. However, the total of votes cast for each party and invalid votes was 1,990,671, nearly 20,000 higher than the reported total and representing a turnout of 103.6%"
