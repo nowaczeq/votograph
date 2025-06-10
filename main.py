@@ -70,11 +70,11 @@ pres_turnout_grouped["Presidential Avg Turnout %"] = pres_turnout_grouped["PresV
 # Create the master dataframes
 turnout_df = pd.merge(pres_turnout_df, parl_turnout_df, on=["Country", "ISO2", "ISO3", "Year"], how= "right")
 avg_turnout_df = pd.merge(pres_turnout_grouped, parl_turnout_grouped, on=["Country"], how= "right")
-print(avg_turnout_df.head(5))
+avg_turnout_df.drop(columns=["PresVotTurn", "ParlVotTurn"], inplace=True)
+# print(avg_turnout_df.head(5))
 
 # Create the master dataframe
 master_df = pd.merge(avg_turnout_df, count_comp_df, on=["Country"], how="right")
-master_df.drop(columns=["PresVotTurn", "ParlVotTurn"])
 
 # Rename the columns in the master dataframe
 master_df.rename(columns={
@@ -105,13 +105,27 @@ pres_system_count = count_comp_df["PresSystem"].value_counts()
 # Count of countries where elections are compulsory
 parl_comp = count_comp_df["ParlComp"].value_counts()
 pres_comp = count_comp_df["PresComp"].value_counts()
-# print(parl_comp)
-# print(pres_comp)
+
 
 # Get information about turnout statistics
 # print(avg_turnout_df.describe())
 # print(turnout_df.describe())
-print(master_df[master_df["ParlComp"].notnull()].describe())
+# print(master_df["PresSystem"].value_counts())
+
+# Get information about turnout
+# print(master_df.head())
+
+# President: mean turnout for each voting system
+mean_system_turnout_pres = master_df.groupby('PresSystem', as_index=False)['Presidential Avg Turnout %'].mean()
+# Parliament: mean turnout for each voting system
+mean_system_turnout_parl = master_df.groupby('ParlSystem', as_index=False)['Parliamentary Avg Turnout %'].mean()
+
+# President: mean turnout for compulsory vs non-compulsory
+mean_comp_turnout_pres = master_df.groupby('PresComp', as_index=False)['Presidential Avg Turnout %'].mean()
+# Parliament: mean turnout for compulsory vs non-compulsory
+mean_comp_turnout_parl = master_df.groupby('ParlComp', as_index=False)['Parliamentary Avg Turnout %'].mean()
+
+print(mean_comp_turnout_parl)
 
 ##########################################
 ##########  INFERENTIAL STATS  ###########

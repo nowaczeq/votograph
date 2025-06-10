@@ -104,7 +104,7 @@ Presidential Avg Turnout %         NaN
 ParlVotTurn                      99.86
 Parliamentary Avg Turnout %     0.9986
 
-Minimal recorded presidential turnout: Haiti 2015 (17.82%):
+Minimal recorded presidential turnout: Haiti 2016 (17.82%):
 Country             Haiti
 ISO2_x                 HT
 ISO3_x                HTI
@@ -125,7 +125,7 @@ ISO3_x                       GNQ
 Year                  2022-01-01
 PresVotTurn                98.41
 
-Maximal recorded parliamentary turnout: Bolivia 2020 (102.62%):*
+Maximal recorded parliamentary turnout: Bolivia 1978 (102.62%):*
 Country           Bolivia
 ISO2_y                 BO
 ISO3_y                BOL
@@ -133,6 +133,81 @@ year           1978-01-01
 ParlVotTurn        102.62
 
 
+------------------------------------------------------------
+### Voting system data
+Count of types of votes used in parliamentary elections
+
+List PR                  76
+FPTP                     47
+Parallel                 25
+TRS                      17
+BV                       10
+MMP                       7
+No direct elections       7
+SNTV                      5
+#FPTP\n#BV                3
+STV                       3
+#BV\n#FPTP                3
+#FPTP\n#PBV               2
+#FPTP\n#List PR           2
+AV                        2
+#FPTP\n#PBV\n#List PR     1
+#TRS\n#PBV\n#List PR      1
+#TRS\n#PBV                1
+LV                        1
+Modified BC               1
+
+Count of types of votes used in presidential elections
+Not applicable    104
+TRS                87
+FPTP               22
+Other               1
+STV                 1
+In transition       1
+SV                  1
+
+
+Average turnouts for presidential election per election system
+       PresSystem  Presidential Avg Turnout %
+0            FPTP                    0.703427
+1   In transition                         NaN
+2  Not applicable                    0.596450
+3           Other                    0.903700
+4             STV                    0.438700
+5              SV                    0.794600
+6             TRS                    0.632864
+
+Average turnouts for parliamentary elections per election system
+               ParlSystem  Parliamentary Avg Turnout %
+0              #BV\n#FPTP                     0.607260
+1              #FPTP\n#BV                     0.703652
+2         #FPTP\n#List PR                     0.606506
+3             #FPTP\n#PBV                     0.651535
+4   #FPTP\n#PBV\n#List PR                     0.680400
+5              #TRS\n#PBV                     0.400630
+6    #TRS\n#PBV\n#List PR                     0.530467
+7                      AV                     0.810531
+8                      BV                     0.783967
+9                    FPTP                     0.683911
+10                     LV                     0.751325
+11                List PR                     0.702444
+12                    MMP                     0.723615
+13            Modified BC                     0.921927
+14    No direct elections                     0.998600
+15               Parallel                     0.658565
+16                   SNTV                     0.581679
+17                    STV                     0.822492
+18                    TRS                     0.671378
+
+Average turnouts for presidential elections for countries in which presidential voting is compulsory
+  PresComp  Presidential Avg Turnout %
+0       No                    0.638358
+1      Yes                    0.698612
+
+Average turnouts for parliamentary elections for countries in which parliamentary voting is compulsory
+  ParlComp  Parliamentary Avg Turnout %
+0       No                     0.679482
+1      Yes                     0.717663
 
 
 
