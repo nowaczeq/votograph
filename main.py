@@ -29,6 +29,53 @@ master_df = pd.merge(systems, iscompulsory, on=["ISO2", "ISO3", "Country"], how=
 # Handle the turnout dataframes
 parl_turnout_df = pd.read_excel("VotTurnoutParlDb.xlsx")
 pres_turnout_df = pd.read_excel("VotTurnoutPresDb.xlsx")
+# print(parl_turnout_df.head(5))
+# print(pres_turnout_df.head(5))
+
+# Drop the "year" column
+parl_turnout_df.drop(columns=["year"])
+pres_turnout_df.drop(columns=["Year"])
+
+# Group the data by country with the average turnout
+# Parliamentary turnout
+parl_turnout_df["ParlVotTurn"] = (
+    parl_turnout_df["ParlVotTurn"]
+    .str.rstrip("%")
+)
+parl_turnout_df["ParlVotTurn"] = pd.to_numeric(parl_turnout_df["ParlVotTurn"], errors='coerce')
+
+parl_turnout_grouped = (
+    parl_turnout_df
+    .groupby("Country", as_index=False)["ParlVotTurn"]
+    .mean()
+)
+parl_turnout_grouped["Parliamentary Avg Turnout %"] = parl_turnout_grouped["ParlVotTurn"] / 100
+
+# Presidential turnout
+pres_turnout_df["PresVotTurn"] = (
+    pres_turnout_df["PresVotTurn"]
+    .str.rstrip("%")
+)
+
+pres_turnout_df["PresVotTurn"] = pd.to_numeric(pres_turnout_df["PresVotTurn"], errors='coerce')
+
+pres_turnout_grouped = (
+    pres_turnout_df
+    .groupby("Country", as_index=False)["PresVotTurn"]
+    .mean()
+)
+
+pres_turnout_grouped["Presidential Avg Turnout %"] = pres_turnout_grouped["PresVotTurn"] / 100
+
+# print(parl_turnout_grouped.head(5))
+# print(pres_turnout_grouped.head(5))
+# print(parl_turnout_grouped.info())
+# print(pres_turnout_grouped.info())
+
+# Create the master turnout dataframe
+turnout_df = pd.merge(pres_turnout_grouped, parl_turnout_grouped, on=["Country"], how= "right")
+print(turnout_df.info())
+
 
 ##########################################
 ############  DATA ANALYSIS  #############
