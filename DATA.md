@@ -1,4 +1,4 @@
-Voting System Analysis Data Summary Document
+**Voting System Analysis Data Summary Document**
 
 # DATA FROM VOTING SYSTEM ANALYSIS
 
@@ -46,11 +46,19 @@ Is voting for President compulsory? (by answer):
 No     99
 Yes    17
 
-------------------------------------------------------------
-
 Is voting for the Parliament compulsory (by answer, where applicable):
 No     25
 Yes     4
+
+Average turnouts for presidential elections for countries in which presidential voting is compulsory
+  PresComp  Presidential Avg Turnout %
+0       No                    0.638358
+1      Yes                    0.698612
+
+Average turnouts for parliamentary elections for countries in which parliamentary voting is compulsory
+  ParlComp  Parliamentary Avg Turnout %
+0       No                     0.679482
+1      Yes                     0.717663
 
 ------------------------------------------------------------
 ### Turnout data
@@ -106,29 +114,29 @@ Parliamentary Avg Turnout %     0.9986
 
 Minimal recorded presidential turnout: Haiti 2016 (17.82%):
 Country             Haiti
-ISO2_x                 HT
-ISO3_x                HTI
+ISO2                 HT
+ISO3                HTI
 Year           2016-11-20
 PresVotTurn         18.11
 
 Minimal recorded parliamentary turnout: Jamaica 1983 (2.73%):
 Country           Jamaica
-ISO2_y                 JM
-ISO3_y                JAM
+ISO2                 JM
+ISO3                JAM
 year           1983-01-01
 ParlVotTurn          2.73
 
 Maximal recorded presidential turnout: Equatorial Guinea 2022 (98.41%):
 Country        Equatorial Guinea
-ISO2_x                        GQ
-ISO3_x                       GNQ
+ISO2                        GQ
+ISO3                       GNQ
 Year                  2022-01-01
 PresVotTurn                98.41
 
 Maximal recorded parliamentary turnout: Bolivia 1978 (102.62%):*
 Country           Bolivia
-ISO2_y                 BO
-ISO3_y                BOL
+ISO2                 BO
+ISO3                BOL
 year           1978-01-01
 ParlVotTurn        102.62
 
@@ -199,15 +207,7 @@ Average turnouts for parliamentary elections per election system
 17                    STV                     0.822492
 18                    TRS                     0.671378
 
-Average turnouts for presidential elections for countries in which presidential voting is compulsory
-  PresComp  Presidential Avg Turnout %
-0       No                    0.638358
-1      Yes                    0.698612
 
-Average turnouts for parliamentary elections for countries in which parliamentary voting is compulsory
-  ParlComp  Parliamentary Avg Turnout %
-0       No                     0.679482
-1      Yes                     0.717663
 
 
 

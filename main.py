@@ -92,6 +92,31 @@ master_df.rename(columns={
 })
 # print(master_df.info())
 
+
+# Creating a master data frame with information for each election
+# turnout - parl/pres turnout
+# sys - pres/parl system
+# comp - iscompulsory
+
+# Master dataframe for parliamentary elections
+parl_system_df.drop(columns="Year", inplace=True)
+parl_iscompulsory_df.drop(columns="Year", inplace=True)
+tmp = pd.merge(parl_turnout_df, parl_system_df, on=["Country", "ISO2", "ISO3"], how="left")
+parliamentary_master = pd.merge(tmp, parl_iscompulsory_df, on=["Country", "ISO2", "ISO3"], how="left")
+print(parliamentary_master.head(5))
+
+# Master dataframe for presidential elections
+pres_system_df.drop(columns="Year", inplace=True)
+pres_iscompulsory_df.drop(columns="Year", inplace=True)
+tmp = pd.merge(pres_turnout_df, pres_system_df, on=["Country", "ISO2", "ISO3"], how="left")
+presidential_master = pd.merge(tmp, pres_iscompulsory_df, on=["Country", "ISO2", "ISO3"], how="left")
+
+# Optionally view the master dataframes
+print(parliamentary_master.head(5))
+print(presidential_master.head(5))
+print(master_df.head(5))
+
+
 ##########################################
 ############  DATA ANALYSIS  #############
 ##########################################
@@ -125,7 +150,7 @@ mean_comp_turnout_pres = master_df.groupby('PresComp', as_index=False)['Presiden
 # Parliament: mean turnout for compulsory vs non-compulsory
 mean_comp_turnout_parl = master_df.groupby('ParlComp', as_index=False)['Parliamentary Avg Turnout %'].mean()
 
-print(mean_comp_turnout_parl)
+# print(master_df.head())
 
 ##########################################
 ##########  INFERENTIAL STATS  ###########
