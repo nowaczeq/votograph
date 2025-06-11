@@ -1,5 +1,9 @@
 **Voting System Analysis Data Summary Document**
 
+DATA ATTRIBUTION:
+https://www.idea.int/data-tools/data/electoral-system-design-database - voting system dataset, with voting turnouts, voting systems and national legislature size
+https://www.gapminder.org/data/ - GapMinder Systema Globalis dataset, including social metrics
+
 # DATA FROM VOTING SYSTEM ANALYSIS
 
 ## DESCRIPTIVE STATISTICS
