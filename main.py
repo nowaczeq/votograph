@@ -27,8 +27,10 @@ turnout_df = idea_dfs["turnout_df"]
 count_comp_df = idea_dfs["count_comp_df"]
 avg_turnout_df = idea_dfs["avg_turnout_df"]
 
+
+# print(presidential_master[presidential_master['Country'] == 'Poland'])
 # Set up GapMinder dataframes
-gapminder_dfs = setup_gapminder.setup_dfs()
+# gapminder_dfs = setup_gapminder.setup_dfs()
 
 ##########################################
 ############  DATA ANALYSIS  #############

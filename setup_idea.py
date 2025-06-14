@@ -131,5 +131,6 @@ def setup_dfs():
         "count_comp_df": count_comp_df,
         "avg_turnout_df": avg_turnout_df
     }
+    
     # Return the dictionary
     return output
