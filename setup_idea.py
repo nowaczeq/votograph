@@ -4,11 +4,11 @@ import pandas as pd
 
 def setup_dfs():
     # Load the data frames
-    pres_system_df = pd.read_excel("raw_data/PresDb.xlsx")
-    parl_system_df = pd.read_excel("raw_data/NatLegDb.xlsx")
+    pres_system_df = pd.read_excel("raw_data_idea/PresDb.xlsx")
+    parl_system_df = pd.read_excel("raw_data_idea/NatLegDb.xlsx")
 
-    pres_iscompulsory_df = pd.read_excel("raw_data/CompulsoryVotPresDB.xlsx")
-    parl_iscompulsory_df = pd.read_excel("raw_data/CompulsoryVotParlDB.xlsx")
+    pres_iscompulsory_df = pd.read_excel("raw_data_idea/CompulsoryVotPresDB.xlsx")
+    parl_iscompulsory_df = pd.read_excel("raw_data_idea/CSompulsoryVotParlDB.xlsx")
 
     # Join all except voter turnout dataframes together
     systems = pd.merge(pres_system_df, parl_system_df, on=["ISO2", "ISO3", "Country", "Year"], how="left")
@@ -23,8 +23,8 @@ def setup_dfs():
     # print(count_comp_df.head(1))
 
     # Handle the turnout dataframes
-    parl_turnout_df = pd.read_excel("raw_data/VotTurnoutParlDb.xlsx")
-    pres_turnout_df = pd.read_excel("raw_data/VotTurnoutPresDb.xlsx")
+    parl_turnout_df = pd.read_excel("raw_data_idea/VotTurnoutParlDb.xlsx")
+    pres_turnout_df = pd.read_excel("raw_data_idea/VotTurnoutPresDb.xlsx")
     # print(parl_turnout_df.head(5))
     # print(pres_turnout_df.head(5))
 

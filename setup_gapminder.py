@@ -6,7 +6,7 @@ import pandas as pd
 def setup_dfs():
     output = {}
 
-    GLOBALIS_FP = "ddf--gapminder--systema_globalis\\countries-etc-datapoints\\ddf--datapoints--"
+    GLOBALIS_FP = "raw_data_gapminder\\"
 
     # Load the datasets
     country_data = pd.read_csv("ddf--gapminder--systema_globalis\\ddf--entities--geo--country.csv")
