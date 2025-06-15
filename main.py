@@ -3,6 +3,7 @@ import pandas as pd
 import statsmodels.api as sm
 import setup_idea
 import setup_gapminder
+import matchmaker
 
 ##########################################
 #######  SETTING UP THE DATAFRAMES  ######
@@ -38,16 +39,26 @@ sex_ratio_df = gapminder_dfs["sex_ratio"]
 income_pp_df = gapminder_dfs["income_pp"]
 gapminder_master_df = gapminder_dfs["master"]
 
-# Merge the two sources into a master dataframe
+# Delete the master dataframe to allow easier looping over all 
+del gapminder_dfs["master"]
+
+# Merge the two sources into a master dataframe, containing average data for each country
 gapminder_master_df["country"] = gapminder_master_df["country"].str.upper()
-parliamentary_master = pd.merge(
+parliamentary_master_with_averages = pd.merge(
     idea_parliamentary_master, gapminder_master_df, 
     how="left", left_on="ISO3", right_on="country")
 
 presidential_master = pd.merge(
     idea_presidential_master, gapminder_master_df,
     how="left", left_on="ISO3", right_on="country")
-print(presidential_master.head(20))
+
+# This isn't good enough, we need to associate each election to the gapminder data separately
+# not the averages, which is the case here
+
+# Match the individual election to the closest possible data
+print(idea_parliamentary_master.head(1))
+print(labour_participation_df.head(1))
+# master = matchmaker.match_elections_to_data(idea_parliamentary_master, gapminder_dfs)
 
 ##########################################
 ############  DATA ANALYSIS  #############

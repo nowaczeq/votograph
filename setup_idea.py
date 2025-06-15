@@ -20,13 +20,10 @@ def setup_dfs():
 
     # Create the master data set
     count_comp_df = pd.merge(systems, iscompulsory, on=["ISO2", "ISO3", "Country"], how= "left")
-    # print(count_comp_df.head(1))
 
     # Handle the turnout dataframes
     parl_turnout_df = pd.read_excel("raw_data_idea/VotTurnoutParlDb.xlsx")
     pres_turnout_df = pd.read_excel("raw_data_idea/VotTurnoutPresDb.xlsx")
-    # print(parl_turnout_df.head(5))
-    # print(pres_turnout_df.head(5))
 
     # Group the data by country with the average turnout
     # Parliamentary turnout
@@ -58,10 +55,6 @@ def setup_dfs():
     )
 
     pres_turnout_grouped["Presidential Avg Turnout %"] = pres_turnout_grouped["PresVotTurn"] / 100
-    # print(parl_turnout_grouped.head(5))
-    # print(pres_turnout_grouped.head(5))
-    # print(parl_turnout_grouped.info())
-    # print(pres_turnout_grouped.info())
 
     # Create the master dataframes
     turnout_df = pd.merge(pres_turnout_df, parl_turnout_df, on=["Country", "ISO2", "ISO3", "Year"], how= "right")
@@ -86,7 +79,6 @@ def setup_dfs():
         "PresComp": "PresCompulsory",
         "ParlComp": "ParlCompulsory"
     })
-    # print(master_df.info())
 
 
     # Creating a master data frame with information for each election
