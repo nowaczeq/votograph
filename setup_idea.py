@@ -8,7 +8,7 @@ def setup_dfs():
     parl_system_df = pd.read_excel("raw_data_idea/NatLegDb.xlsx")
 
     pres_iscompulsory_df = pd.read_excel("raw_data_idea/CompulsoryVotPresDB.xlsx")
-    parl_iscompulsory_df = pd.read_excel("raw_data_idea/CSompulsoryVotParlDB.xlsx")
+    parl_iscompulsory_df = pd.read_excel("raw_data_idea/CompulsoryVotParlDB.xlsx")
 
     # Join all except voter turnout dataframes together
     systems = pd.merge(pres_system_df, parl_system_df, on=["ISO2", "ISO3", "Country", "Year"], how="left")
