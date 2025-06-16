@@ -19,6 +19,7 @@ def match_elections_to_data(df_elections: pd.DataFrame, country_data: dict):
     df_elections = df_elections.dropna(subset=['year'])
     df_elections['year'] = df_elections['year'].astype(int)
 
+    # Get the gapminder datasets from the passed dict
     labour_participation_df = country_data["labour_participation"].rename(columns={"geo": "country", "time": "year"})
     ppp_gdp_per_capita_df = country_data["ppp_gdp_per_capita"].rename(columns={"geo": "country", "time": "year"})
     democracy_score_df = country_data["democracy_score"].rename(columns={"geo": "country", "time": "year"})
@@ -27,7 +28,7 @@ def match_elections_to_data(df_elections: pd.DataFrame, country_data: dict):
     sex_ratio_df = country_data["sex_ratio"].rename(columns={"geo": "country", "time": "year"})
     income_pp_df = country_data["income_pp"].rename(columns={"geo": "country", "time": "year"})
 
-    print(labour_participation_df.columns)
+
     # Perform outer merge on gapminder dataframes to preserve data for respective years
     gm = pd.merge(labour_participation_df, ppp_gdp_per_capita_df, on=['year', 'country'], how='outer')
     gm = pd.merge(gm, economic_growth_df, on=['year', 'country'], how='outer')
@@ -36,14 +37,21 @@ def match_elections_to_data(df_elections: pd.DataFrame, country_data: dict):
     gm = pd.merge(gm, sex_ratio_df, on=['year', 'country'], how='outer')
     gm = pd.merge(gm, income_pp_df, on=['year', 'country'], how='outer')
 
-    # Sort values by year
+    # Sort values by year, reset indexes
     gm = gm.sort_values(['year', 'country']).reset_index(drop=True)
     df_elections = df_elections.sort_values(['year', 'country']).reset_index(drop=True)
 
+    # Create copies of gm for merging
+    gm_before = gm.copy()
+    gm_before['new_year'] = gm_before['year']
+    gm_before = gm_before.rename(columns={'new_year': 'year_before'})
+    gm_after = gm.copy()
+    gm_after['new_year'] = gm_before['year']
+    gm_after = gm_after.rename(columns={'new_year': 'year_after'})
     # Merge to get information before or on / after election year
     df_before = pd.merge_asof(
         df_elections,
-        gm,
+        gm_before,
         on='year',
         by='country',
         direction='backward',
@@ -52,12 +60,23 @@ def match_elections_to_data(df_elections: pd.DataFrame, country_data: dict):
 
     df_after = pd.merge_asof(
         df_elections,
-        gm,
+        gm_after,
         on='year',
         by='country',
         direction='forward',
         suffixes=('', '_after')
     )
+
+    # Get the differences between the estimated years and the actual year
+    before_diff = (df_elections["year"] - df_before["year_before"]).abs()
+    after_diff  = (df_elections["year"] - df_after["year_after"]).abs()
+
+    # Change the year to the closest year available
+    df_elections["year"] = np.where(before_diff <= after_diff,
+                                df_before["year_before"],
+                                df_after["year_after"])
+
+    return
 
     # For each election, compare whether the data from 'backward' or 'forward' directions are closer and apply those
     df_combined = df_before.copy()
