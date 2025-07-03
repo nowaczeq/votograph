@@ -222,8 +222,5 @@ Average turnouts for parliamentary elections per election system
 
 
 
-
-
-
 * From [Wikipedia](https://en.wikipedia.org/wiki/1978_Bolivian_general_election):
 "The official results were inconsistent; the reported total number of votes cast was 1,971,968, around 50,000 more than the number of registered voters (1,921,556), giving a turnout of 102.6%. However, the total of votes cast for each party and invalid votes was 1,990,671, nearly 20,000 higher than the reported total and representing a turnout of 103.6%"
