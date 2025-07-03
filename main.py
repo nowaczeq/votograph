@@ -102,13 +102,13 @@ mean_comp_turnout_parl = idea_master_df.groupby('ParlComp', as_index=False)['Par
 
 # EXAMPLE OF SCATTERPLOT CREATION WITG PLT
 # Democracy score - parliamentary turnout
-x = master['democracy_score_use_as_color']
+x = master['total_population_with_projections']
 y = master['ParlVotTurn']
 
-# plt.scatter(x, y)
-# plt.ylabel('Turnout in parliamentary elections')
-# plt.xlabel('Democracy score')
-# plt.savefig(PLOT_FP + 'demscore-turnout.png')
+plt.scatter(x, y)
+plt.ylabel('Turnout in parliamentary elections')
+plt.xlabel('Population size')
+plt.savefig(PLOT_FP + 'population-turnout.png')
 
 ##########################################
 ##########  INFERENTIAL STATS  ###########

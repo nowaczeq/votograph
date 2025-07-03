@@ -25,6 +25,7 @@ def match_elections_to_data(df_elections: pd.DataFrame, country_data: dict):
     hdi_df = country_data["hdi"].rename(columns={"geo": "ISO3", "time": "year"})
     sex_ratio_df = country_data["sex_ratio"].rename(columns={"geo": "ISO3", "time": "year"})
     income_pp_df = country_data["income_pp"].rename(columns={"geo": "ISO3", "time": "year"})
+    population_df = country_data["population"].rename(columns={"geo": "ISO3", "time": "year"})
 
 
     # Perform outer merge on gapminder dataframes to preserve data for respective years
@@ -34,6 +35,7 @@ def match_elections_to_data(df_elections: pd.DataFrame, country_data: dict):
     gm = pd.merge(gm, hdi_df, on=['year', 'ISO3'], how='outer')
     gm = pd.merge(gm, sex_ratio_df, on=['year', 'ISO3'], how='outer')
     gm = pd.merge(gm, income_pp_df, on=['year', 'ISO3'], how='outer')
+    gm = pd.merge(population_df, income_pp_df, on=['year', 'ISO3'], how='outer')
 
     df_elections_sorted = df_elections.sort_values(['ISO3', 'year']).reset_index(drop=True)
     df_elections_sorted['ISO3'] = df_elections_sorted['ISO3'].str.lower()

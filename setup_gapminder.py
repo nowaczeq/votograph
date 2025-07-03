@@ -17,6 +17,7 @@ def setup_dfs():
     hdi = pd.read_csv(GLOBALIS_FP + "hdi_human_development_index--by--geo--time.csv")
     sex_ratio = pd.read_csv(GLOBALIS_FP + "sex_ratio_all_age_groups--by--geo--time.csv")
     income_pp = pd.read_csv(GLOBALIS_FP + "income_per_person_long_series--by--geo--time.csv")
+    population = pd.read_csv(GLOBALIS_FP + "total_population_with_projections--by--geo--time.csv")
 
     # Clean the dataframes
     country_data = country_data[[
@@ -31,6 +32,7 @@ def setup_dfs():
     output["hdi"] = hdi
     output["sex_ratio"] = sex_ratio
     output["income_pp"] = income_pp
+    output["population"] = population
 
 
     # Drop the rows from before 1950
@@ -45,6 +47,7 @@ def setup_dfs():
     hdi_mean = hdi.groupby('geo', as_index=False)['hdi_human_development_index'].mean()
     sex_ratio_mean = sex_ratio.groupby('geo', as_index=False)['sex_ratio_all_age_groups'].mean()
     income_pp_mean = income_pp.groupby('geo', as_index=False)['income_per_person_long_series'].mean()
+    population_mean = population.groupby('geo', as_index=False)['total_population_with_projections'].mean()
 
     # Merge into master dataframe
     master = pd.merge(country_data, labour_participation_mean, how="left", left_on="country", right_on="geo").drop(columns="geo")
@@ -54,6 +57,7 @@ def setup_dfs():
     master = pd.merge(master, hdi_mean, how="left", left_on="country", right_on="geo").drop(columns="geo")
     master = pd.merge(master, sex_ratio_mean, how="left", left_on="country", right_on="geo").drop(columns="geo")
     master = pd.merge(master, income_pp_mean, how="left", left_on="country", right_on="geo").drop(columns="geo")
+    master = pd.merge(master, population_mean, how="left", left_on="country", right_on="geo").drop(columns="geo")
     output["master"] = master
 
     return output
