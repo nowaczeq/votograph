@@ -1,9 +1,13 @@
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+import matplotlib.pyplot as plt
 import setup_idea
 import setup_gapminder
 import matchmaker
+
+PLOT_FP = "resources\\plots\\"
+DF_FP = "resources\\dataframes\\"
 
 ##########################################
 #######  SETTING UP THE DATAFRAMES  ######
@@ -56,9 +60,7 @@ presidential_master = pd.merge(
 # not the averages, which is the case here
 
 # Match the individual election to the closest possible data
-print(idea_parliamentary_master.head(1))
-print(labour_participation_df.head(1))
-# master = matchmaker.match_elections_to_data(idea_parliamentary_master, gapminder_dfs)
+master = matchmaker.match_elections_to_data(idea_parliamentary_master, gapminder_dfs)
 
 ##########################################
 ############  DATA ANALYSIS  #############
@@ -94,6 +96,26 @@ mean_comp_turnout_pres = idea_master_df.groupby('PresComp', as_index=False)['Pre
 mean_comp_turnout_parl = idea_master_df.groupby('ParlComp', as_index=False)['Parliamentary Avg Turnout %'].mean()
 
 # print(idea_master_df.head())
+
+# Create and visually analyse plots
+# print(master.head(5))
+
+# Democracy score - parliamentary turnout
+# y = master['democracy_score_use_as_color']
+# x = master['ParlVotTurn']
+
+# plt.scatter(x, y)
+# plt.xlabel('Turnout in parliamentary elections')
+# plt.ylabel('Democracy score')
+
+# Sex ratio - parliamentary turnout
+x = master['sex_ratio_all_age_groups']
+y = master['ParlVotTurn']
+
+plt.scatter(x, y, alpha=0.5)
+plt.ylabel('Turnout in parliamentary elections')
+plt.xlabel('Sex ratio')
+plt.savefig(PLOT_FP + 'sexratio-turnout.png')
 
 ##########################################
 ##########  INFERENTIAL STATS  ###########
